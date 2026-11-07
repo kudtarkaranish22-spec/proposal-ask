@@ -1,4 +1,5 @@
- Elements
+
+// Elements
 const envelope = document.getElementById("envelope-container");
 const letter = document.getElementById("letter-container");
 const noBtn = document.querySelector(".no-btn");
@@ -9,40 +10,40 @@ const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
- Click Envelope
-
+// Click Envelope
 envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "flex";
 
-    setTimeout( () => {
+    setTimeout(() => {
         document.querySelector(".letter-window").classList.add("open");
-    },50);
+    }, 50);
 });
 
- Logic to make YES btn to grow when NO is clicked
+// YES button growth
+let yesScale = 1;
 
- let yesScale = 1;
+yesBtn.style.transformOrigin = "center center";
+yesBtn.style.transition = "transform 0.3s ease";
 
- yesBtn.style.position = "relative"
- yesBtn.style.transformOrigin = "center center";
- yesBtn.style.transition = "transform 0.3s ease";
+// NO button runs away
+noBtn.addEventListener("pointerenter", () => {
+    // Make YES button bigger
+    yesScale += 0.3;
+    yesBtn.style.transform = `scale(${yesScale})`;
 
- noBtn.addEventListener("click", () => {
-     yesScale += 2;
+    // Move NO button randomly
+    const distance = 200;
+    const angle = Math.random() * Math.PI * 2;
 
-     if (yesBtn.style.position !== "fixed") {
-         yesBtn.style.position = "fixed";
-         yesBtn.style.top = "50%";
-         yesBtn.style.left = "50%";
-         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-     }else{
-         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-     }
- });
+    const moveX = Math.cos(angle) * distance;
+    const moveY = Math.sin(angle) * distance;
 
- YES is clicked
+    noBtn.style.transition = "transform 0.3s ease";
+    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+});
 
+// YES is clicked
 yesBtn.addEventListener("click", () => {
     title.textContent = "Yippeeee!";
 
